@@ -1,5 +1,7 @@
 package SchemeView;
 
+import java.util.ArrayList;
+
 import Generator.Knot;
 import Generator.Rope;
 import Generator.Row;
@@ -18,11 +20,11 @@ public class ConsoleSchemeViewer
     {
         System.out.println("==|| Test Scheme #0 NoName ||==");
         System.out.println();
-        System.out.println("1|2|3|4|5|6");
-        System.out.println(" /   /   /      -1");
-        System.out.println("2|1|4|3|6|5");
-        System.out.println("/  /   /   \\0    -2");
-        System.out.println("2|4|1|6|3|5");
+        System.out.println("0|1|2|3|4|5");
+        System.out.println(" /   /   /      [1");
+        System.out.println("1|0|3|2|5|4");
+        System.out.println("/  /   /   \\0    [2");
+        System.out.println("1|3|0|5|2|4");
         System.out.println();
         System.out.println("==|| End ||==");
     }
@@ -36,44 +38,47 @@ public class ConsoleSchemeViewer
             StringBuilder ropesStr = new StringBuilder();
             StringBuilder knotsStr = new StringBuilder();
             boolean first = true;
+            int i = 0;
+            ArrayList<Integer> ropes = row.getRopesUp();
             for (Knot knot: row.getKnots())
             {
-                Rope[] ropes = knot.getRopesUp();
                 switch (knot.getDirection())
                 {
                     case LEFT:
                         if (!first)
                             knotsStr.append("  ");
                         knotsStr.append(" /");
-                        ropesStr.append(String.valueOf(ropes[0].getId())).append('|').append(String.valueOf(ropes[1].getId())).append('|');
+                        ropesStr.append(String.valueOf(ropes.get(i))).append('|').append(String.valueOf(ropes.get(i+1))).append('|');
                         break;
                     case RIGHT:
                         if (!first)
                             knotsStr.append("  ");
                         knotsStr.append(" \\");
-                        ropesStr.append(String.valueOf(ropes[0].getId())).append('|').append(String.valueOf(ropes[1].getId())).append('|');
+                        ropesStr.append(String.valueOf(ropes.get(i))).append('|').append(String.valueOf(ropes.get(i+1))).append('|');
                         break;
                     case LEFT_ANGLE:
                         if (!first)
                             knotsStr.append("  ");
                         knotsStr.append(" >");
-                        ropesStr.append(String.valueOf(ropes[0].getId())).append('|').append(String.valueOf(ropes[1].getId())).append('|');
+                        ropesStr.append(String.valueOf(ropes.get(i))).append('|').append(String.valueOf(ropes.get(i+1))).append('|');
                         break;
                     case RIGHT_ANGLE:
                         if (!first)
                             knotsStr.append("  ");
                         knotsStr.append(" <");
-                        ropesStr.append(String.valueOf(ropes[0])).append('|').append(String.valueOf(ropes[1].getId())).append('|');
+                        ropesStr.append(String.valueOf(ropes.get(i))).append('|').append(String.valueOf(ropes.get(i+1))).append('|');
                         break;
                     case RIGHT_EMPTY:
                         knotsStr.append("  \\0");
-                        ropesStr.append(String.valueOf(ropes[0].getId()));
+                        ropesStr.append(String.valueOf(ropes.get(i)));
                         break;
                     case LEFT_EMPTY:
                         knotsStr.append("/0");
-                        ropesStr.append(String.valueOf(ropes[0].getId())).append('|');
+                        ropesStr.append(String.valueOf(ropes.get(i))).append('|');
+                        i --;
                         break;
                 }
+                i += 2;
                 first = false;
             }
             System.out.println(ropesStr.toString());
