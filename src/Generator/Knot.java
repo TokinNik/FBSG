@@ -12,53 +12,17 @@ public class Knot
         RIGHT_EMPTY
     }
 
-    private Rope[] ropesUp;
     private KnotDirection direction;
-    private Rope[] ropesDown;
+    private Colour colour;
 
-    Knot(Rope[] ropesUp)
+    Knot()
     {
-        this.ropesUp = ropesUp;
         this.direction = KnotDirection.LEFT;
-        this.ropesDown = new Rope[2];
-        makeKnot();
     }
 
-    Knot(Rope[] ropesUp, KnotDirection direction)
+    Knot( KnotDirection direction)
     {
-        this.ropesUp = ropesUp;
         this.direction = direction;
-        if (direction == KnotDirection.LEFT_EMPTY || direction == KnotDirection.RIGHT_EMPTY )
-            this.ropesDown = new Rope[1];
-        else
-            this.ropesDown = new Rope[2];
-        makeKnot();
-    }
-
-    Knot(Rope[] ropesUp, KnotDirection direction, Rope[] ropesDown)
-    {
-        this.ropesUp = ropesUp;
-        this.direction = direction;
-        this.ropesDown = ropesDown;
-    }
-
-    void makeKnot()
-    {
-        if (direction == KnotDirection.LEFT || direction == KnotDirection.RIGHT)
-        {
-            ropesDown[1] = ropesUp[0];
-            ropesDown[0] = ropesUp[1];
-        }
-        else
-            ropesDown = ropesUp;
-    }
-
-    public Rope[] getRopesUp() {
-        return ropesUp;
-    }
-
-    public void setRopesUp(Rope[] ropesUp) {
-        this.ropesUp = ropesUp;
     }
 
     public KnotDirection getDirection() {
@@ -67,5 +31,13 @@ public class Knot
 
     public void setDirection(KnotDirection direction) {
         this.direction = direction;
+    }
+
+    public Colour getColour() {
+        return colour;
+    }
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
     }
 }
