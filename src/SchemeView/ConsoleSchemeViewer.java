@@ -33,13 +33,18 @@ public class ConsoleSchemeViewer
     {
         System.out.println("==|| Scheme #" + scheme.getId() + " - " + scheme.getName() + " ||==");
         System.out.println();
+        for (Rope rope :scheme.getRopeUp())
+        {
+            System.out.print(rope.getId() + "|");
+        }
+        System.out.println();
         for (Row row: scheme.getRows())
         {
             StringBuilder ropesStr = new StringBuilder();
             StringBuilder knotsStr = new StringBuilder();
             boolean first = true;
             int i = 0;
-            ArrayList<Integer> ropes = row.getRopesUp();
+            ArrayList<Integer> ropes = row.getRopesDown();
             for (Knot knot: row.getKnots())
             {
                 switch (knot.getDirection())
@@ -81,9 +86,9 @@ public class ConsoleSchemeViewer
                 i += 2;
                 first = false;
             }
-            System.out.println(ropesStr.toString());
             knotsStr.append("    [").append(String.valueOf(row.getId()));
             System.out.println(knotsStr.toString());
+            System.out.println(ropesStr.toString());
         }
         for (Rope rope :scheme.getRopeDown())
         {

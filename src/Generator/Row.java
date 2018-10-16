@@ -40,16 +40,19 @@ public class Row
     public void makeRow()
     {
         int i = 0;
-        if (type == RowType.NOT_FULL || type == RowType.OPEN_LEFT)
-            i++;
         for (Knot k:knots)
         {
+            if (k.getDirection() == Knot.KnotDirection.LEFT_EMPTY)
+            {
+                i++;
+                continue;
+            }
             if (i + 1 == ropesUp.size())
                 break;
             if (k.getDirection() == Knot.KnotDirection.RIGHT || k.getDirection() == Knot.KnotDirection.LEFT)
             {
-                int buf = ropesDown.get(i);
-                ropesDown.set(i, ropesDown.get(i+1));
+                int buf = ropesUp.get(i);
+                ropesDown.set(i, ropesUp.get(i+1));
                 ropesDown.set(i+1, buf);
             }
             if (i + 2 < ropesUp.size())
@@ -78,7 +81,8 @@ public class Row
     }
 
     public void setRopesUp(ArrayList<Integer> ropesUp) {
-        this.ropesUp = ropesUp;
+        this.ropesUp.clear();
+        this.ropesUp.addAll(ropesUp);
     }
 
     public ArrayList<Integer> getRopesDown() {
@@ -86,7 +90,8 @@ public class Row
     }
 
     public void setRopesDown(ArrayList<Integer> ropesDown) {
-        this.ropesDown = ropesDown;
+        this.ropesDown.clear();
+        this.ropesDown.addAll(ropesDown);
     }
 
     public int getId() {

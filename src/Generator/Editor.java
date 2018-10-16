@@ -28,8 +28,8 @@ public class Editor
         Rope newRope = new Rope(preSize+1);
         scheme.getRopeUp().add(newRope);
         scheme.getRopeDown().add(newRope);
-        ArrayList<Integer> ropesUp = scheme.getRows().get(0).getRopesUp();
-        ropesUp.add(newRope.getId());
+        boolean first = true;
+        int i = 0;
         for (Row row :scheme.getRows())
         {
             switch (row.getType())
@@ -48,20 +48,35 @@ public class Editor
                     break;
                 case OPEN_LEFT:
                     row.setType(Row.RowType.NOT_FULL);
+                    row.getKnots().add(new Knot(Knot.KnotDirection.RIGHT_EMPTY));
                     break;
+            }
+            ArrayList<Integer> ropesUp = new ArrayList<>();
+            if (first)
+            {
+                first = false;
+                ropesUp.addAll(scheme.getRows().get(0).getRopesUp());
+                ropesUp.add(newRope.getId());
+            }
+            else
+            {
+                ropesUp.clear();
+                ropesUp.addAll(scheme.getRows().get(i-1).getRopesDown());
             }
             row.setRopesUp(ropesUp);
             row.setRopesDown(ropesUp);
             row.makeRow();
-            ropesUp = row.getRopesDown();
+            i++;
         }
+        ArrayList<Rope> buf1 = scheme.getRopeUp();
         ArrayList<Rope> buf = new ArrayList<>();
-        ArrayList<Rope> buf1 = scheme.getRopeDown();
-        buf.addAll(scheme.getRopeDown());
-        for (int i = 0; i < buf1.size()-1; i++)
+        ArrayList<Integer> buf3 = scheme.getRows().get(scheme.getRows().size()-1).getRopesDown();
+        for (i = 0; i < buf1.size(); i++)
         {
-            buf1.set(i, buf.get(ropesUp.get(i)));
+            buf.add(buf1.get(buf3.get(i)));
         }
+        scheme.getRopeDown().clear();
+        scheme.getRopeDown().addAll(buf);
     }
 
     public void decRope()

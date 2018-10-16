@@ -12,7 +12,12 @@ public class Main
         viewer.testScheme();
         viewer.viewScheme();
         editor.addRope();
-        viewer.setScheme(testScheme);
+        viewer.viewScheme();
+        editor.addRope();
+        viewer.viewScheme();
+        editor.addRope();
+        viewer.viewScheme();
+        editor.addRope();
         viewer.viewScheme();
 
     }
