@@ -13,12 +13,9 @@ public class Main
         viewer.viewScheme();
         editor.addRope();
         viewer.viewScheme();
-        editor.addRope();
+        editor.decRope();
         viewer.viewScheme();
-        editor.addRope();
-        viewer.viewScheme();
-        editor.addRope();
-        viewer.viewScheme();
+        
 
     }
 }

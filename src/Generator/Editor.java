@@ -81,7 +81,63 @@ public class Editor
 
     public void decRope()
     {
-
+        isChanged = true;
+        int preSize = scheme.getRopeUp().size()-1;
+        if (preSize < 4)
+        {
+            System.out.println("!!! 4 Ropes is min to scheme !!!");
+            return;
+        }
+        scheme.getRopeUp().remove(preSize);
+        scheme.getRopeDown().remove(preSize);
+        boolean first = true;
+        int i = 0;
+        for (Row row :scheme.getRows())
+        {
+            switch (row.getType())
+            {
+                case FULL:
+                    row.setType(Row.RowType.OPEN_RIGHT);
+                    row.getKnots().get(row.getKnots().size()-1).setDirection(Knot.KnotDirection.RIGHT_EMPTY);
+                    break;
+                case NOT_FULL:
+                    row.setType(Row.RowType.OPEN_LEFT);
+                    row.getKnots().remove(row.getKnots().size()-1);
+                    break;
+                case OPEN_RIGHT:
+                    row.setType(Row.RowType.FULL);
+                    row.getKnots().remove(row.getKnots().size()-1);
+                    break;
+                case OPEN_LEFT:
+                    row.setType(Row.RowType.NOT_FULL);
+                    row.getKnots().get(row.getKnots().size()-1).setDirection(Knot.KnotDirection.RIGHT_EMPTY);
+                    break;
+            }
+            ArrayList<Integer> ropesUp = new ArrayList<>();
+            if (first)
+            {
+                first = false;
+                ropesUp.addAll(scheme.getRows().get(0).getRopesUp());
+            }
+            else
+            {
+                ropesUp.clear();
+                ropesUp.addAll(scheme.getRows().get(i-1).getRopesDown());
+            }
+            row.setRopesUp(ropesUp);
+            row.setRopesDown(ropesUp);
+            row.makeRow();
+            i++;
+        }
+        ArrayList<Rope> buf1 = scheme.getRopeUp();
+        ArrayList<Rope> buf = new ArrayList<>();
+        ArrayList<Integer> buf3 = scheme.getRows().get(scheme.getRows().size()-1).getRopesDown();
+        for (i = 0; i < buf1.size(); i++)
+        {
+            buf.add(buf1.get(buf3.get(i)));
+        }
+        scheme.getRopeDown().clear();
+        scheme.getRopeDown().addAll(buf);
     }
 
     public void addRow()
