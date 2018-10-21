@@ -68,7 +68,6 @@ public class Editor
             row.makeRow();
             i++;
         }
-        reBuild();
         ArrayList<Rope> buf1 = scheme.getRopeUp();
         ArrayList<Rope> buf = new ArrayList<>();
         ArrayList<Integer> buf3 = scheme.getRows().get(scheme.getRows().size()-1).getRopesDown();
