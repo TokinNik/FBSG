@@ -44,16 +44,25 @@ public class Row
         {
             if (k.getDirection() == Knot.KnotDirection.LEFT_EMPTY)
             {
+                ropesDown.set(i,ropesUp.get(i));
                 i++;
                 continue;
             }
             if (i + 1 == ropesUp.size())
+            {
+                ropesDown.set(i,ropesUp.get(i));
                 break;
+            }
             if (k.getDirection() == Knot.KnotDirection.RIGHT || k.getDirection() == Knot.KnotDirection.LEFT)
             {
                 int buf = ropesUp.get(i);
                 ropesDown.set(i, ropesUp.get(i+1));
                 ropesDown.set(i+1, buf);
+            }
+            else
+            {
+                ropesDown.set(i,ropesUp.get(i));
+                ropesDown.set(i+1,ropesUp.get(i+1));
             }
             if (i + 2 < ropesUp.size())
                 i += 2;

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FriendshipBraceletSchemesGenerator.iml" filepath="$PROJECT_DIR$/FriendshipBraceletSchemesGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FBSG.iml" filepath="$PROJECT_DIR$/FBSG.iml" />
     </modules>
   </component>
 </project>

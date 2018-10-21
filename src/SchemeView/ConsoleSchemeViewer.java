@@ -35,6 +35,11 @@ public class ConsoleSchemeViewer
         System.out.println();
         for (Rope rope :scheme.getRopeUp())
         {
+            System.out.print(rope.getId() + " - " + rope.getColour() + " | ");
+        }
+        System.out.println();
+        for (Rope rope :scheme.getRopeUp())
+        {
             System.out.print(rope.getId() + "|");
         }
         System.out.println();
